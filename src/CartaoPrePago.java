@@ -67,16 +67,24 @@ public class CartaoPrePago {
 	}
 	
 	public void adicionarCredito(double valor) {
+		if (valor <= 0) {
+			throw new CardException ("Valor de crédito não pode ser negativo");
+		}
 		this.saldo += valor;
 	}
 	
 	public boolean comprar(double valor) {
-		if (valor > this.saldo) {
-			return false;
+		if (valor <= 0) {
+			throw new CardException ("Valor da compra não pode ser negativo.");
 		}
-		else {
-			this.saldo -= valor;
-			return true;
+		else {		
+			if (valor > this.saldo) {
+				return false;
+			}
+			else {
+				this.saldo -= valor;
+				return true;
+			}
 		}
 	}
 
